@@ -53,7 +53,7 @@
 		<!-- nav-right -->
 		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
 			<a href='#!'>
-			<span class='label blue darken-3 suite-start-time'>Jul 29, 2020 04:48:40 PM</span>
+			<span class='label blue darken-3 suite-start-time'>Aug 10, 2020 03:07:23 PM</span>
 			</a>
 		</ul>
 	</div>
@@ -80,7 +80,7 @@
 				<i class='material-icons'>local_offer</i> Category
 				</a>
 				<ul id='category-toggle' class='dropdown-content'>
-					<li><a href='#'>@UAT_TCS-01.32.6</a></li>
+					<li><a href='#'>@UAT_TCS-01.15.3</a></li>
 					<li class='divider'></li>
 					<li class='clear'><a href='#!' clear='true'>Clear Filters</a></li>
 				</ul>
@@ -135,7 +135,7 @@
                     <canvas id='child-analysis' width='90' height='70'></canvas>
                 </div>
                 <div class='block text-small'>
-                    <span class='tooltipped' data-position='top' data-tooltip='100%'><span class='strong'>1</span> scenario(s) passed</span>
+                    <span class='tooltipped' data-position='top' data-tooltip='100%'><span class='strong'>2</span> scenario(s) passed</span>
                 </div>
                 <div class='block text-small'>
                     <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> scenario(s) failed, 
@@ -151,7 +151,7 @@
                     <canvas id='grandchild-analysis' width='90' height='70'></canvas>
                 </div>
                 <div class='block text-small'>
-                    <span class='tooltipped' data-position='top' data-tooltip='100%'><span class='strong'>6</span> step(s) passed</span>
+                    <span class='tooltipped' data-position='top' data-tooltip='100%'><span class='strong'>16</span> step(s) passed</span>
                 </div>
                 <div class='block text-small'>
                     <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> scenario(s) failed, 
@@ -176,8 +176,8 @@
 			<ul id='test-collection' class='test-collection'>
 				<li class='test displayed active has-leaf pass' status='pass' bdd='true' test-id='1'>
 					<div class='test-heading'>
-						<span class='test-name'>Print Registration Reports_TaxType</span>
-						<span class='test-time'>Jul 29, 2020 04:48:51 PM</span>
+						<span class='test-name'>[SUC:01-10] De-Register Taxpayer</span>
+						<span class='test-time'>Aug 10, 2020 03:07:30 PM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
@@ -189,11 +189,11 @@
 </div>
 <div class='scenario node' test-id='2' status='pass'>
 	<div class='category-list'>
-		<span class='category label'>@UAT_TCS-01.32.6</span>
+		<span class='category label'>@UAT_TCS-01.15.3</span>
 	</div>
-	<span class='duration right label'>0h 0m 31s+293ms</span>
+	<span class='duration right label'>0h 0m 11s+341ms</span>
 	<div class="bdd-test">
-		<div class="scenario-name"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span> Scenario: UAT_TCS 01.32.6-To Verify the Process of printing Taxpayer Reports - Report is abandoned</div>
+		<div class="scenario-name"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span> Scenario: UAT_TCS-01.15.3-To verify the process of checking Validation error during Deregistration</div>
 	</div>
 	<ul class='steps'>
 		<li test-id='4' class='node given pass' status='pass'>
@@ -205,19 +205,70 @@
 			<div class="node-step"><table class='runtime-table table-striped table'><tr><td>tripsuser</td><td>Passw0rd</td></tr></table></div>
 		</li>
 		<li test-id='6' class='node then pass' status='pass'>
-			<div class="step-name" title="Steps.stepDefinitions.goToReportingScreen()"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Then Click reporting > reports</div>
+			<div class="step-name" title="Steps.stepDefinitions.click_on_registration_manage_taxpayer_deregister_tax()"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Then Click on registration > manage taxpayer > deregister tax</div>
 			<div class="node-step"></div>
 		</li>
 		<li test-id='7' class='node then pass' status='pass'>
-			<div class="step-name" title="Steps.stepDefinitions.select_report_to_print(java.lang.String)"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Then Select report to print "TaxTypeRegistrationReport"</div>
+			<div class="step-name" title="Steps.stepDefinitions.search_for_tin(java.lang.String)"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Then Search for tin "C0028116"</div>
 			<div class="node-step"></div>
 		</li>
 		<li test-id='8' class='node then pass' status='pass'>
-			<div class="step-name" title="Steps.stepDefinitions.click_cancel(java.lang.String)"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Then Click Cancel "frmReportDetails:btnCancel"</div>
+			<div class="step-name" title="Steps.stepDefinitions.click_search_id(java.lang.String)"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Then Click search : id "SearchForm:j_idt42"</div>
 			<div class="node-step"></div>
 		</li>
 		<li test-id='9' class='node then pass' status='pass'>
-			<div class="step-name" title="Steps.stepDefinitions.verify_report_page_is_abandoned()"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Then Verify report page is abandoned</div>
+			<div class="step-name" title="Steps.stepDefinitions.click_table_column(java.lang.String)"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Then Click table column "//*[@id='DeregisterRegime:deregTable_data']/tr[1]/td[3]"</div>
+			<div class="node-step"></div>
+		</li>
+		<li test-id='10' class='node then pass' status='pass'>
+			<div class="step-name" title="Steps.stepDefinitions.enter_edd_date()"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Then Enter EDD date</div>
+			<div class="node-step"></div>
+		</li>
+		<li test-id='11' class='node then pass' status='pass'>
+			<div class="step-name" title="Steps.stepDefinitions.click_de_register()"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Then Click de register</div>
+			<div class="node-step"></div>
+		</li>
+		<li test-id='12' class='node then pass' status='pass'>
+			<div class="step-name" title="Steps.stepDefinitions.verify_error_message(java.lang.String)"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Then Verify error message "Reason: Validation Error: Value is required."</div>
+			<div class="node-step"></div>
+		</li>
+	</ul>
+</div>
+<div class='scenario node' test-id='15' status='pass'>
+	<div class='category-list'>
+		<span class='category label'>@UAT_TCS-01.15.3</span>
+	</div>
+	<span class='duration right label'>0h 0m 15s+94ms</span>
+	<div class="bdd-test">
+		<div class="scenario-name"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span> Scenario: UAT_TCS-01.15.3-To verify the process of checking Validation error during Deregistration</div>
+	</div>
+	<ul class='steps'>
+		<li test-id='17' class='node given pass' status='pass'>
+			<div class="step-name" title="Steps.stepDefinitions.loadTripsLink()"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Given Browser is launched and trips URL loaded in address bar</div>
+			<div class="node-step"></div>
+		</li>
+		<li test-id='18' class='node and pass' status='pass'>
+			<div class="step-name" title="Steps.stepDefinitions.login_as_revenue_officer(io.cucumber.datatable.DataTable)"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>And User logged in as revenue officer</div>
+			<div class="node-step"><table class='runtime-table table-striped table'><tr><td>tripsuser</td><td>Passw0rd</td></tr></table></div>
+		</li>
+		<li test-id='19' class='node then pass' status='pass'>
+			<div class="step-name" title="Steps.stepDefinitions.click_on_registration_manage_taxpayer_deregister_tax()"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Then Click on registration > manage taxpayer > deregister tax</div>
+			<div class="node-step"></div>
+		</li>
+		<li test-id='20' class='node then pass' status='pass'>
+			<div class="step-name" title="Steps.stepDefinitions.search_for_tin(java.lang.String)"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Then Search for tin "C0028116"</div>
+			<div class="node-step"></div>
+		</li>
+		<li test-id='21' class='node then pass' status='pass'>
+			<div class="step-name" title="Steps.stepDefinitions.click_search_id(java.lang.String)"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Then Click search : id "SearchForm:j_idt42"</div>
+			<div class="node-step"></div>
+		</li>
+		<li test-id='22' class='node then pass' status='pass'>
+			<div class="step-name" title="Steps.stepDefinitions.click_cancel(java.lang.String)"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Then Click Cancel "DeregisterRegime:Cancel"</div>
+			<div class="node-step"></div>
+		</li>
+		<li test-id='23' class='node then pass' status='pass'>
+			<div class="step-name" title="Steps.stepDefinitions.displayWelcomePage(java.lang.String)"><span class='status pass' title='pass'><i class='material-icons'>check_circle</i></span>Then Verify abandon process "http://18.202.88.7:8001/trips-ui/faces/login/Welcome.xhtml"</div>
 			<div class="node-step"></div>
 		</li>
 	</ul>
@@ -264,14 +315,14 @@
 			<ul id='category-collection' class='category-collection'>
 				<li class='category displayed active'>
 					<div class='category-heading'>
-						<span class='category-name'>@UAT_TCS-01.32.6</span>
+						<span class='category-name'>@UAT_TCS-01.15.3</span>
 						<span class='category-status right'>
-						<span class='label pass'>1</span>
+						<span class='label pass'>2</span>
 						</span>
 					</div>
 					<div class='category-content hide'>
 						<div class='category-status-counts'>
-							<span status="pass" class='label green accent-4 white-text'>Passed: 1</span>
+							<span status="pass" class='label green accent-4 white-text'>Passed: 2</span>
 							
 							
 						</div>
@@ -286,8 +337,13 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td>Jul 29, 2020 04:48:51 PM</td>
-										<td class='linked' test-id='2'>UAT_TCS 01.32.6-To Verify the Process of printing Taxpayer Reports - Report is abandoned</td>
+										<td>Aug 10, 2020 03:07:30 PM</td>
+										<td class='linked' test-id='2'>UAT_TCS-01.15.3-To verify the process of checking Validation error during Deregistration</td>
+										<td><span class='test-status pass'>pass</span></td>
+									</tr>
+									<tr>
+										<td>Aug 10, 2020 03:07:47 PM</td>
+										<td class='linked' test-id='15'>UAT_TCS-01.15.3-To verify the process of checking Validation error during Deregistration</td>
 										<td><span class='test-status pass'>pass</span></td>
 									</tr>
 								</tbody>
@@ -318,31 +374,31 @@
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Scenarios
-					<div class='panel-lead'>1</div>
+					<div class='panel-lead'>2</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Steps
-					<div class='panel-lead'>6</div>
+					<div class='panel-lead'>16</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Start
-					<div class='panel-lead'>Jul 29, 2020 04:48:40 PM</div>
+					<div class='panel-lead'>Aug 10, 2020 03:07:23 PM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 			 		End
-			 		<div class='panel-lead'>Jul 29, 2020 04:49:23 PM</div>
+			 		<div class='panel-lead'>Aug 10, 2020 03:08:03 PM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Time Taken
-					<div class='panel-lead'>0h 0m 43s+256ms</div>
+					<div class='panel-lead'>0h 0m 39s+995ms</div>
 				</div>
 			</div>
 			<div class='col s6'>
@@ -358,8 +414,8 @@
 							<th>Passed %</th>
 						</tr>
 						<tr>
-							<td>@UAT_TCS-01.32.6</td>
-							<td>1</td>
+							<td>@UAT_TCS-01.15.3</td>
+							<td>2</td>
 							<td>0</td>
 							<td>0</td>
 							<td>
@@ -385,8 +441,8 @@
 				warningParent: 0,
 				skipParent: 0,
 				exceptionsParent: 0,
-				childCount: 1,
-				passChild: 1,
+				childCount: 2,
+				passChild: 2,
 				failChild: 0,
 				fatalChild: 0,
 				errorChild: 0,
@@ -395,8 +451,8 @@
 				infoChild: 0,
 				debugChild: 0,
 				exceptionsChild: 0,
-				grandChildCount: 6,
-				passGrandChild: 6,
+				grandChildCount: 16,
+				passGrandChild: 16,
 				failGrandChild: 0,
 				fatalGrandChild: 0,
 				errorGrandChild: 0,
@@ -409,7 +465,7 @@
 		</script>
 		<script>
 			var timeline = {
-			        "Print Registration Reports_TaxType":31.293
+			        "[SUC:01-10] De-Register Taxpayer":32.523
 			};
 		</script>
 	

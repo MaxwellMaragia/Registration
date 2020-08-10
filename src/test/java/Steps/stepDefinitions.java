@@ -43,15 +43,15 @@ public class stepDefinitions extends BaseClass {
     public void login_as_revenue_officer(DataTable data) throws Throwable {
 
         List<List<String>> obj = data.asLists();
+        WebDriverWait wait = new WebDriverWait(driver,5);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(Pro.getProperty("BackOffice_UserName_ID")))).sendKeys(obj.get(0).get(0));
 
-        driver.findElement(By.id(Pro.getProperty("BackOffice_UserName_ID"))).clear();
-        driver.findElement(By.id(Pro.getProperty("BackOffice_UserName_ID"))).sendKeys(obj.get(0).get(0));
-        driver.findElement(By.id(Pro.getProperty("BackOffice_Password_ID"))).clear();
         driver.findElement(By.id(Pro.getProperty("BackOffice_Password_ID"))).sendKeys(obj.get(0).get(1));
         driver.findElement(By.id(Pro.getProperty("BackOffice_Login_ID"))).click();
 
 
     }
+
 
     //login to taxpayer portal
     @Then("^Login to portal$")
@@ -80,8 +80,9 @@ public class stepDefinitions extends BaseClass {
     @Then("^Click table column \"([^\"]*)\"$")
     public void click_table_column(String ColumnXpath) throws Throwable {
 
-        Thread.sleep(3000);
-        driver.findElement(By.xpath(ColumnXpath)).click();
+        WebDriverWait wait = new WebDriverWait(driver,30);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(ColumnXpath))).click();
+
         Actions action = new Actions(driver);
         action.sendKeys(Keys.ENTER);
     }
@@ -115,10 +116,8 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Verify error message \"([^\"]*)\"$")
     public void verify_error_message(String error) throws Throwable {
-        BaseClass.waitForPageToLoad();
-        Thread.sleep(5000);
-
-        WebElement errorMessage = driver.findElement(By.xpath("//span[contains(text(),'" + error + "')]"));
+        WebDriverWait wait = new WebDriverWait(driver,20);
+        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + error + "')]")));
 
         if (errorMessage.isDisplayed()) {
             //This will scroll the page till the element is found
@@ -153,9 +152,9 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Verify save success message \"([^\"]*)\"$")
     public void verify_success_message(String Message) throws Throwable {
-        BaseClass.waitForPageToLoad();
-        Thread.sleep(3000);
-        WebElement successMessage = driver.findElement(By.xpath("//span[contains(text(),'" + Message + "')]"));
+
+        WebDriverWait wait = new WebDriverWait(driver,20);
+        WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + Message + "')]")));
 
         if (successMessage.isDisplayed()) {
             System.out.println("Success message ('" + Message + "') has been displayed");
@@ -1083,6 +1082,36 @@ public class stepDefinitions extends BaseClass {
         }
     }
 
-    //.....................
+    //.....................De-register taxpayer......................................//
+    @Then("^Click on registration > manage taxpayer > deregister tax$")
+    public void click_on_registration_manage_taxpayer_deregister_tax() throws Throwable {
+        WebDriverWait wait = new WebDriverWait(driver,10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"MenuForm:j_idt29\"]/ul/li[1]/a"))).click();
+
+        driver.findElement(By.xpath("//*[@id=\"MenuForm:j_idt29\"]/ul/li[1]/ul/li[2]/a")).click();
+        driver.findElement(By.xpath("//*[@id=\"sub1\"]/ul/li[6]/a")).click();
+    }
+
+    @Then("^Search for tin \"([^\"]*)\"$")
+    public void search_for_tin(String tin) throws Throwable {
+        WebDriverWait wait = new WebDriverWait(driver,5);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("SearchForm:accountNumber"))).sendKeys(tin);
+    }
+
+    @Then("^Enter EDD date$")
+    public void enter_edd_date(){
+        driver.findElement(By.id("DeregisterRegime:EDD_input")).sendKeys(Keys.ENTER);
+    }
+
+    @Then("^Click de register$")
+    public void click_de_register() throws Throwable {
+       driver.findElement(By.id("DeregisterRegime:deregisterBtn")).click();
+    }
+
+    @Then("^Verify abandon process \"([^\"]*)\"$")
+    public void displayWelcomePage(String url) throws Throwable {
+        String URL = driver.getCurrentUrl();
+        Assert.assertEquals(URL, url );
+    }
 
 }
