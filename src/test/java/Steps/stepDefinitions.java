@@ -69,6 +69,7 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Click next \"([^\"]*)\"$")
     public void clickNext(String NextButtonId) {
+        BaseClass.waitForPageToLoad();
         driver.findElement(By.id(NextButtonId)).click();
     }
 
