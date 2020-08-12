@@ -1115,4 +1115,62 @@ public class stepDefinitions extends BaseClass {
         Assert.assertEquals(URL, url );
     }
 
+
+    //......................SUC:01-20..........................................................//
+    @Then("^Click on registration > register taxpayer > process registration application$")
+    public void accessProcessRegistrationScreen(){
+        WebDriverWait wait = new WebDriverWait(driver,10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"MenuForm:j_idt29\"]/ul/li[1]/a"))).click();
+
+        driver.findElement(By.xpath("//*[@id=\"MenuForm:j_idt29\"]/ul/li[1]/ul/li[1]/a")).click();
+        driver.findElement(By.xpath("//*[@id=\"sub1\"]/ul/li[4]/a")).click();
+    }
+
+    @Then("^Enter registration application reference number as \"([^\"]*)\"$")
+    public void enter_registration_application_reference_number(String refNumber)  {
+        WebDriverWait wait = new WebDriverWait(driver,30);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("SearchForm:applicationReference"))).sendKeys(refNumber);
+    }
+
+    @Then("^Click view$")
+    public void click_view() throws Throwable {
+        Thread.sleep(2000);
+        driver.findElement(By.id("SearchForm:j_id19")).click();
+    }
+
+    @Then("^Verify reference number, applicant name, application status and tpin fields$")
+    public void verify_reference_number_applicant_name_application_status_and_tpin_fields() throws Throwable {
+         WebDriverWait wait = new WebDriverWait(driver,30);
+         WebElement firstNameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("RegisterIndividual:FirstName")));
+         Assert.assertFalse(firstNameField.isEnabled());
+
+         WebElement referenceNumberField = driver.findElement(By.id("RegisterIndividual:ApplicationReference"));
+         Assert.assertFalse(referenceNumberField.isEnabled());
+
+         WebElement applicationStatusField = driver.findElement(By.id("RegisterIndividual:StatusInd"));
+         Assert.assertFalse(applicationStatusField.isEnabled());
+
+         WebElement tinField = driver.findElement(By.id("RegisterIndividual:TINInd"));
+         Assert.assertFalse(tinField.isEnabled());
+    }
+
+    @Then("^Verify reference number, organization name, application status and tpin fields$")
+    public void verify_reference_number_organization_name_application_status_and_tpin_fields() throws Throwable {
+        WebDriverWait wait = new WebDriverWait(driver,60);
+        WebElement organizationNameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("OrganisationSummaryDetails:LegalName")));
+        Assert.assertFalse(organizationNameField.getAttribute("readonly"),false);
+
+        WebElement referenceNumberField = driver.findElement(By.id("OrganisationSummaryDetails:ApplicationReference"));
+        Assert.assertFalse(referenceNumberField.getAttribute("readonly"),false);
+
+        WebElement applicationStatusField = driver.findElement(By.id("OrganisationSummaryDetails:Status"));
+        Assert.assertFalse(applicationStatusField.getAttribute("readonly"),false);
+
+        WebElement tinField = driver.findElement(By.id("OrganisationSummaryDetails:TIN"));
+        Assert.assertFalse(tinField.getAttribute("readonly"),false);
+    }
+
+
+
+
 }

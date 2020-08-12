@@ -1,12 +1,12 @@
 Feature: SUC:01-08-Amend Taxpayer
 
-  @UAT_TCS-01.08.3
+  @UAT_TCS-01.08.3 @SUC:01-08
   Scenario Outline: UAT_TCS 01.08.3-To verify the process of amendment request received from Taxpayer Portal
     Given Browser is launched and trips URL loaded in address bar
     And User logged in as revenue officer
       | tripsuser | Passw0rd |
     Then Go to registration > manage taxpayer > update taxpayer
-    Then Enter tin as "V0024699"
+    Then Enter tin as "V0028293"
     Then Click search : id "SearchForm:j_idt42"
     Then Enter Organization name "<name>"
     Then Select reason for amendment : organization "<amendmentReason>"
@@ -27,7 +27,7 @@ Feature: SUC:01-08-Amend Taxpayer
       | name               | amendmentReason | Status   | SuccessMessage                          |
       | Codei technologies | Change of Name  | Approved | Processing Completed - Reference Number |
 
-  @UAT_TCS-01.08.4
+  @UAT_TCS-01.08.4 @SUC:01-08
   Scenario: UAT_TCS 01.08.4-To verify the process of Taxpayer not found for Amendment
     Given Browser is launched and trips URL loaded in address bar
     And User logged in as revenue officer
@@ -37,7 +37,7 @@ Feature: SUC:01-08-Amend Taxpayer
     Then Click search : id "SearchForm:j_idt42"
     Then Verify no data is found in table
 
-  @UAT_TCS-01.08.5
+  @UAT_TCS-01.08.5 @SUC:01-08
   Scenario: UAT_TCS 01.08.5-To verify the process of validation error during amendment
     Given Browser is launched and trips URL loaded in address bar
     And User logged in as revenue officer
@@ -48,7 +48,7 @@ Feature: SUC:01-08-Amend Taxpayer
     Then Click save "OrganisationSummaryDetails:submitTaxpayerRegistration"
     Then Verify error message "Amendment Reason: Validation Error: Value is required"
 
-  @UAT_TCS-01.08.6
+  @UAT_TCS-01.08.6 @SUC:01-08
   Scenario: UAT_TCS 01.08.6-To verify the process of validation error during amendment
     Given Browser is launched and trips URL loaded in address bar
     And User logged in as revenue officer
@@ -59,8 +59,8 @@ Feature: SUC:01-08-Amend Taxpayer
     Then Click Cancel "OrganisationSummaryDetails:Cancel"
     Then Verify exit from update page
 
-  @UAT_TCS-01.08.8
-  Scenario Outline: UAT_TCS 01.08.9-To verify the process of rejecting amendment task
+  @UAT_TCS-01.08.8 @SUC:01-08
+  Scenario: UAT_TCS 01.08.9-To verify the process of rejecting amendment task
     Given Browser is launched and trips URL loaded in address bar
     And User logged in as revenue officer
       | tripsuser | Passw0rd |
@@ -74,13 +74,13 @@ Feature: SUC:01-08-Amend Taxpayer
     Then Obtain reference number "<SuccessMessage>"
     Then Open CRM and close modal
 
-  @UAT_TCS-01.08.9
+  @UAT_TCS-01.08.9 @SUC:01-08
   Scenario Outline: UAT_TCS 01.08.9-To verify the process of rejecting amendment task
     Given Browser is launched and trips URL loaded in address bar
     And User logged in as revenue officer
       | tripsuser | Passw0rd |
     Then Go to registration > manage taxpayer > update taxpayer
-    Then Enter tin as "V0024699"
+    Then Enter tin as "V0028293"
     Then Click search : id "SearchForm:j_idt42"
     Then Enter Organization name "<name>"
     Then Select reason for amendment : organization "<amendmentReason>"
@@ -103,7 +103,7 @@ Feature: SUC:01-08-Amend Taxpayer
       | name               | amendmentReason | Notes        | SuccessMessage                          |
       | Codei technologies | Change of Name  | Invalid data | Processing Completed - Reference Number |
 
-  @UAT_TCS-01.07.11
+  @UAT_TCS-01.07.11 @SUC:01-08
   Scenario Outline: UAT_TCS 01.07.11-To verify the process of Amending when taxpayer status is 'Pending Approval'
     Given Browser is launched and trips URL loaded in address bar
     And User logged in as revenue officer
@@ -119,7 +119,7 @@ Feature: SUC:01-08-Amend Taxpayer
       | name          | amendmentReason |
       | Bakam Systems | Change of Name  |
 
-  @UAT_TCS-01.08.12
+  @UAT_TCS-01.08.12 @SUC:01-08
   Scenario: UAT_TCS 01.08.12-To verify the process of Amending when taxpayer status is 'De-Registered'
     Given Browser is launched and trips URL loaded in address bar
     And User logged in as revenue officer
@@ -129,7 +129,7 @@ Feature: SUC:01-08-Amend Taxpayer
     Then Click search : id "SearchForm:j_idt42"
     Then Verify no data is found in table
 
-  @UAT_TCS-01.08.13
+  @UAT_TCS-01.08.13 @SUC:01-08
   Scenario: UAT_TCS 01.08.13-To verify the process of Amending when taxpayer and other relationships contains same TIN number
     Given Browser is launched and trips URL loaded in address bar
     And User logged in as revenue officer
@@ -149,13 +149,13 @@ Feature: SUC:01-08-Amend Taxpayer
     Then Click ok: xpath "//*[@id='RelationshipDetails:Ok']"
     Then Verify error message "The selected taxpayer cannot be added to itself as any other relationship."
 
-  @UAT_TCS-01.08.14
+  @UAT_TCS-01.08.14 @SUC:01-08
   Scenario: UAT_TCS 01.08.14-To verify the process of Transferring Property
     Given Browser is launched and trips URL loaded in address bar
     And User logged in as revenue officer
       | tripsuser | Passw0rd |
     Then Go to registration > manage taxpayer > update taxpayer
-    Then Enter tin as "V0024699"
+    Then Enter tin as "V0028293"
     Then Click search : id "SearchForm:j_idt42"
     Then Select reason for amendment : organization "Change of property"
     Then Click properties tab : organization
