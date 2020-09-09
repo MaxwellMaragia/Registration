@@ -22,7 +22,6 @@ Feature: [SUC:01-10] De-Register Taxpayer
     Then Click de register
     Then Verify error message "Reason: Validation Error: Value is required."
 
-
   @UAT_TCS-01.15.3
   Scenario: UAT_TCS-01.15.3-To verify the process of Abandoning Deregistration process
     Then Click on registration > manage taxpayer > deregister tax

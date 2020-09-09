@@ -27,10 +27,8 @@ public class stepDefinitions extends BaseClass {
     //--------------------UTILS-------------------------------------------------------------------//
     @Given("^Browser is launched and trips URL loaded in address bar$")
     public void loadTripsLink() throws Throwable {
-
         driver.get(Pro.getProperty("MRA_BackOffice_URL"));
         driver.manage().window().maximize();
-
     }
 
     @Given("^Open portal URL$")
@@ -41,30 +39,21 @@ public class stepDefinitions extends BaseClass {
 
     @And("^User logged in as revenue officer$")
     public void login_as_revenue_officer(DataTable data) throws Throwable {
-
         List<List<String>> obj = data.asLists();
         WebDriverWait wait = new WebDriverWait(driver,5);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(Pro.getProperty("BackOffice_UserName_ID")))).sendKeys(obj.get(0).get(0));
-
         driver.findElement(By.id(Pro.getProperty("BackOffice_Password_ID"))).sendKeys(obj.get(0).get(1));
         driver.findElement(By.id(Pro.getProperty("BackOffice_Login_ID"))).click();
-
-
     }
-
 
     //login to taxpayer portal
     @Then("^Login to portal$")
     public void portalLogin(DataTable data) throws Throwable {
-
         BaseClass.waitForPageToLoad();
         List<List<String>> obj = data.asLists();
-
         driver.findElement(By.id(Pro.getProperty("USERNAME_ID"))).sendKeys(obj.get(0).get(0));
         driver.findElement(By.id(Pro.getProperty("PASSWORD_ID"))).sendKeys(obj.get(0).get(1));
         driver.findElement(By.id(Pro.getProperty("LOGIN_ID"))).click();
-
-
     }
 
     @Then("^Click next \"([^\"]*)\"$")
@@ -80,20 +69,16 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Click table column \"([^\"]*)\"$")
     public void click_table_column(String ColumnXpath) throws Throwable {
-
         WebDriverWait wait = new WebDriverWait(driver,30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(ColumnXpath))).click();
-
         Actions action = new Actions(driver);
         action.sendKeys(Keys.ENTER);
     }
 
     @Then("^Click continue \"([^\"]*)\"$")
     public void click_continue(String continueID) throws Throwable {
-
         Thread.sleep(2000);
         driver.findElement(By.id(continueID)).click();
-
     }
 
     @Then("^Switch to frame 2$")
@@ -119,29 +104,22 @@ public class stepDefinitions extends BaseClass {
     public void verify_error_message(String error) throws Throwable {
         WebDriverWait wait = new WebDriverWait(driver,20);
         WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + error + "')]")));
-
         if (errorMessage.isDisplayed()) {
             //This will scroll the page till the element is found
-
             System.out.println("Error message ('" + error + "') has been displayed");
             Assert.assertTrue(true);
         } else {
             Assert.fail();
-
         }
     }
 
     @Then("^Verify no data is found in table$")
     public void verify_no_data_is_found_in_table() throws Throwable {
         WebElement noDataXpath = driver.findElement(By.xpath("//td[contains(text(),'No records found.')]"));
-
         if (noDataXpath.isDisplayed()) {
             Assert.assertTrue("No data found in table", true);
-
         } else {
-
             Assert.assertFalse("Data found in table", false);
-
         }
     }
 
@@ -153,26 +131,21 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Verify save success message \"([^\"]*)\"$")
     public void verify_success_message(String Message) throws Throwable {
-
         WebDriverWait wait = new WebDriverWait(driver,20);
         WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + Message + "')]")));
-
         if (successMessage.isDisplayed()) {
             System.out.println("Success message ('" + Message + "') has been displayed");
             Assert.assertTrue(true);
         } else {
             Assert.fail();
-
         }
     }
 
     @Then("^Click add \"([^\"]*)\"$")
     public void click_add(String addID) throws Throwable {
-
         Thread.sleep(1000);
         BaseClass.waitForPageToLoad();
         driver.findElement(By.id(addID)).click();
-
     }
 
     @And("^Click ok: xpath \"([^\"]*)\"$")
@@ -190,22 +163,18 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Click search : id \"([^\"]*)\"$")
     public void click_search_id(String searchID) throws Throwable {
-
         driver.findElement(By.id(searchID)).click();
     }
-
 
     //-------------------------END UTILS----------------------------------------------------------------------------------//
     //-------------------------Submit Registration Application------------------------------------------------------------//
 
     @Then("^Click on registration > register taxpayer > register individual$")
     public void openIndividualRegistration() {
-
         BaseClass.waitForPageToLoad();
         driver.findElement(By.xpath("//*[@id=\"MenuForm:j_idt29\"]/ul/li[1]")).click();
         driver.findElement(By.xpath("//*[@id=\"MenuForm:j_idt29\"]/ul/li[1]/ul/li[1]")).click();
         driver.findElement(By.xpath("//*[@id=\"sub1\"]/ul/li[1]")).click();
-
     }
 
     @Then("^Click on registration > register taxpayer > register organization$")
@@ -255,7 +224,6 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Select gender \"([^\"]*)\"$")
     public void select_gender(String gender) throws Throwable {
-
         driver.findElement(By.xpath("//*[@id=\"RegisterIndividual:individualAccordion:Gender\"]/div[3]")).click();
         Thread.sleep(1500);
         Actions action = new Actions(driver);
@@ -265,7 +233,6 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Select marital status \"([^\"]*)\"$")
     public void select_marital_status(String maritalStatus) throws Throwable {
-
         driver.findElement(By.xpath("//*[@id=\"RegisterIndividual:individualAccordion:MaritalStatus\"]/div[3]")).click();
         Thread.sleep(2000);
         driver.findElement(By.xpath("//li[contains(text(),'" + maritalStatus + "')]")).click();
@@ -338,23 +305,17 @@ public class stepDefinitions extends BaseClass {
 
     @And("^Click occupation - business interest tab$")
     public void click_occupation_business_interest_tab() {
-
         driver.findElement(By.xpath("//*[@id=\"RegisterIndividual:individualAccordion\"]/ul/li[4]/a")).click();
-
     }
 
     @And("^Click on identification tab$")
     public void click_on_identification_tab() {
-
         driver.findElement(By.xpath("//*[@id=\"RegisterIndividual:individualAccordion\"]/ul/li[2]/a")).click();
-
     }
 
     @And("^Click directors tab$")
     public void click_on_directors_tab() {
-
         driver.findElement(By.xpath("//*[@id=\"OrganisationSummaryDetails:organisationAccordion\"]/ul/li[14]/a")).click();
-
     }
 
     @Then("^Select identification \"([^\"]*)\"$")
@@ -366,47 +327,37 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Enter identification number \"([^\"]*)\"$")
     public void enter_identification_number(String idNumber) throws Throwable {
-
         Thread.sleep(4000);
         driver.findElement(By.id("Identification:IdentificationNumber")).sendKeys(idNumber);
-
     }
 
     @Then("^Enter date of issue \"([^\"]*)\"$")
     public void enter_date_of_issue(String dateOfIssue) {
-
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("document.getElementById('Identification:IdentificationEffectiveDate_input').setAttribute('value', '" + dateOfIssue + "')");
-
     }
 
     @Then("^Enter expiry date \"([^\"]*)\"$")
     public void enter_expiry_date(String expiryDate) {
-
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("document.getElementById('Identification:ExpiryDate_input').setAttribute('value', '" + expiryDate + "')");
-
     }
 
     @And("^Click attachments tab$")
     public void click_attachments_tab() throws Throwable {
         Thread.sleep(2500);
         driver.findElement(By.xpath("//*[@id=\"RegisterIndividual:individualAccordion\"]/ul/li[10]/a")).click();
-
     }
 
     @And("^Click attachments tab : organization$")
     public void click_attachments_tab_organization_registration() throws Throwable {
-
         driver.findElement(By.xpath("//*[@id=\"OrganisationSummaryDetails:organisationAccordion\"]/ul/li[8]/a")).click();
-
     }
 
     @Then("^Select document type \"([^\"]*)\"$")
     public void select_document_type(String documentType) throws Throwable {
         Thread.sleep(4000);
         driver.findElement(By.xpath("//*[@id=\"AttachmentDetails:DocType\"]/div[3]")).click();
-
         Thread.sleep(1500);
         driver.findElement(By.xpath("//li[contains(text(),'" + documentType + "')]")).click();
     }
@@ -453,19 +404,15 @@ public class stepDefinitions extends BaseClass {
         Thread.sleep(3000);
         driver.findElement(By.xpath("//*[@id=\"RelationshipDetails:RelationshipType\"]/div[3]")).click();
         Thread.sleep(1500);
-
         Actions action = new Actions(driver);
-
         action.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
     }
 
     @Then("^Search for relationship with same tin \"([^\"]*)\"$")
     public void search_for_relationship_with_same_tin(String tin) throws Throwable {
-
         Thread.sleep(3000);
         driver.findElement(By.id("SearchForm:accountNumber")).sendKeys(tin);
         driver.findElement(By.id("SearchForm:j_idt21")).click();
-
     }
 
     @Then("^Select address type \"([^\"]*)\"$")
@@ -478,18 +425,14 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Uncheck primary indicator checkbox$")
     public void uncheck_primary_indicator_checkbox() throws Throwable {
-
         Thread.sleep(2000);
         driver.findElement(By.id("AddressDetails:PrimaryAddressType")).click();
-
     }
 
     @Then("^Then enter town \"([^\"]*)\"$")
     public void then_enter_town(String town) throws Throwable {
-
         Thread.sleep(2500);
         driver.findElement(By.id("AddressDetails:City")).sendKeys(town);
-
     }
 
     @Then("^Select region \"([^\"]*)\" and district \"([^\"]*)\"$")
@@ -498,7 +441,6 @@ public class stepDefinitions extends BaseClass {
         driver.findElement(By.xpath("//*[@id=\"AddressDetails:PostalRegion\"]/div[3]")).click();
         Thread.sleep(1500);
         driver.findElement(By.xpath("//li[contains(text(),'" + region + "')]")).click();
-
         Thread.sleep(2000);
         driver.findElement(By.xpath("//*[@id=\"AddressDetails:District\"]/div[3]")).click();
         Thread.sleep(2000);
@@ -532,10 +474,8 @@ public class stepDefinitions extends BaseClass {
     public void enter_employers_details(String employersName, String startDate) throws Throwable {
         Thread.sleep(3000);
         driver.findElement(By.id("EmploymentDetails:employersName")).sendKeys(employersName);
-
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("document.getElementById('EmploymentDetails:StartDate_input').setAttribute('value', '" + startDate + "')");
-
     }
 
     @Then("^Enter Organization name \"([^\"]*)\"$")
@@ -577,17 +517,14 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Enter director start date \"([^\"]*)\"$")
     public void enter_director_start_date(String directorStartDate) throws Throwable {
-
         Thread.sleep(2000);
         JavascriptExecutor jse = (JavascriptExecutor) driver;
         jse.executeScript("document.getElementById('DirectorsDetails:PositionHeldSince_input').setAttribute('value', '" + directorStartDate + "')");
-
     }
 
     @Then("^Select business sector$")
     public void select_business_sector() throws Throwable {
         //driver.findElement(By.id("OrganisationSummaryDetails:organisationAccordion:businessDetailsHandler:AddBusinessSD")).click();
-
         driver.findElement(By.xpath("//*[@id=\"BusinessSectorDetails:BusinessCode\"]/div[3]")).click();
         Thread.sleep(1500);
         Actions action = new Actions(driver);
@@ -610,11 +547,9 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Select country of issue \"([^\"]*)\"$")
     public void select_country_of_issue(String countryOfIssue) throws Throwable {
-
         driver.findElement(By.xpath("//*[@id=\"Identification:CountryOfIssue\"]/div[3]")).click();
         Thread.sleep(1500);
         driver.findElement(By.xpath("//li[contains(text(),'" + countryOfIssue + "')]")).click();
-
     }
 
     @Then("^Go to registration > manage taxpayer > update taxpayer$")
@@ -636,14 +571,12 @@ public class stepDefinitions extends BaseClass {
         BaseClass.waitForPageToLoad();
         driver.findElement(By.xpath("//*[@id=\"RegisterIndividual:individualAccordion:AmmendmentReason\"]/div[3]")).click();
         Thread.sleep(2500);
-
         //        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         //        WebElement reason = driver.findElement(By.xpath("//li[contains(text(),'" + amendmentReason + "')]"));
         //        reason.click();
 
         Actions action = new Actions(driver);
         action.sendKeys(Keys.ARROW_RIGHT).sendKeys(Keys.ENTER).perform();
-
     }
 
     @Then("^Select reason for amendment : organization \"([^\"]*)\"$")
@@ -651,11 +584,8 @@ public class stepDefinitions extends BaseClass {
         BaseClass.waitForPageToLoad();
         driver.findElement(By.xpath("//*[@id=\"OrganisationSummaryDetails:organisationAccordion:AmendmentReason\"]/div[3]")).click();
         Thread.sleep(2500);
-
-
         Actions action = new Actions(driver);
         action.sendKeys(Keys.ARROW_RIGHT).sendKeys(Keys.ENTER).perform();
-
     }
 
     @Then("^Obtain reference number \"([^\"]*)\"$")
@@ -664,10 +594,8 @@ public class stepDefinitions extends BaseClass {
         String FullMessage = driver.findElement(By.xpath("//span[contains(text(),'" + SuccessMessage + "')]")).getText();
         System.out.println(FullMessage);
         //Processing Completed - Reference Number - CRAL/000001959/2020
-
         ReferenceNumber = FullMessage.substring(41);
         System.out.println(ReferenceNumber);
-
     }
 
     @Then("^Open CRM and close modal$")
@@ -683,11 +611,9 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Click on registration application link$")
     public void click_on_accounting_application_link() throws Throwable {
-
         driver.findElement(By.xpath(Pro.getProperty("Cases_Management_Dropdown_XPATH"))).click();
         Thread.sleep(2000);
         driver.findElement(By.id("tbg_registrationapplication")).click();
-
     }
 
     @Then("^switch to frame$")
@@ -702,7 +628,6 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^search for reference number$")
     public void search_for_reference_number() throws Throwable {
-
         Thread.sleep(3000);
         driver.findElement(By.id(Pro.getProperty("Search_Field_ID"))).sendKeys(ReferenceNumber);
         driver.findElement(By.id(Pro.getProperty("Search_Field_Submit_ID"))).click();
@@ -710,14 +635,10 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Click on reference number$")
     public void click_on_reference_number() {
-
         WebElement elementLocator = driver.findElement(By.xpath(Pro.getProperty("CaseManagement_Queue_Select_ReffNo_XPATH")));
-
         Actions actions = new Actions(driver);
         actions.doubleClick(elementLocator).perform();
-
         driver.switchTo().defaultContent();
-
     }
 
     @Then("^Click next stage button$")
@@ -803,7 +724,6 @@ public class stepDefinitions extends BaseClass {
     public void enter_Outcome_Notes(String Notes) throws Throwable {
         Thread.sleep(5000);
         Actions action1 = new Actions(driver);
-
         WebElement element1 = driver.findElement(By.id((Pro.getProperty("Individual_NextStage_RefNum_Reject_OutComeNotes_ID"))));
         action1.sendKeys(element1, Notes).build().perform();
         Thread.sleep(5000);
@@ -812,22 +732,17 @@ public class stepDefinitions extends BaseClass {
     @Then("^Enter Outcome Reason for Taxpayer accounting$")
     public void enter_Outcome_Reason_for_Taxpayer_accounting() throws Throwable {
         WebElement specificframe = driver.findElement(By.id("WebResource_tbg_rejectionRefernceData"));
-
         driver.switchTo().frame(specificframe);
-
         WebElement dropDown = driver.findElement(By.id("viewoption"));
         //WebElement dropDown = driver.findElement(By.xpath("//*[@id=\"statuscode_i\"]"));
         dropDown.click();
-
         driver.findElement(By.xpath("//option[text()='Duplicate entity found']")).click();
-
     }
 
     @Then("^Click save CRM$")
     public void ClickSaveCRM() throws Throwable {
         driver.switchTo().defaultContent();
         driver.findElement(By.id("tbg_registrationapplication|NoRelationship|Form|Mscrm.Form.tbg_registrationapplication.Save")).click();
-
         //    	driver.findElement(By.id("tbg_accountingapplication|NoRelationship|Form|Mscrm.Form.tbg_accountingapplication.Save")).click();
         //    	driver.findElement(By.xpath(Pro.getProperty("//*[@id=\"tbg_accountingapplication|NoRelationship|Form|Mscrm.Form.tbg_accountingapplication.Save\"]"))).click();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -938,8 +853,8 @@ public class stepDefinitions extends BaseClass {
         }
     }
 
-    //................................Print Organization Reports................................................//
 
+    //................................Print Organization Reports................................................//
     @Then("^Click reporting > reports$")
     public void goToReportingScreen() throws Throwable {
         BaseClass.waitForPageToLoad();
@@ -949,9 +864,8 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Select report to print \"([^\"]*)\"$")
     public void select_report_to_print(String reportType) throws Throwable {
-        BaseClass.waitForPageToLoad();
-        Thread.sleep(2000);
-        driver.findElement(By.xpath("//a[text()='" + reportType + "']")).click();
+        WebDriverWait wait = new WebDriverWait(driver,20);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='" + reportType + "']"))).click();
 
     }
 
@@ -972,7 +886,6 @@ public class stepDefinitions extends BaseClass {
     public boolean isFileDownloaded(String downloadPath, String fileName) {
         File dir = new File(downloadPath);
         File[] dirContents = dir.listFiles();
-
         for (int i = 0; i < dirContents.length; i++) {
             if (dirContents[i].getName().equals(fileName)) {
                 // File has been found, it can now be deleted:
@@ -1156,6 +1069,7 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Verify reference number, organization name, application status and tpin fields$")
     public void verify_reference_number_organization_name_application_status_and_tpin_fields() throws Throwable {
+
         WebDriverWait wait = new WebDriverWait(driver,60);
         WebElement organizationNameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("OrganisationSummaryDetails:LegalName")));
         Assert.assertFalse(organizationNameField.getAttribute("readonly"),false);
@@ -1169,8 +1083,4 @@ public class stepDefinitions extends BaseClass {
         WebElement tinField = driver.findElement(By.id("OrganisationSummaryDetails:TIN"));
         Assert.assertFalse(tinField.getAttribute("readonly"),false);
     }
-
-
-
-
 }

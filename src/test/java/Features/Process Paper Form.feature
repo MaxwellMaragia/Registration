@@ -55,7 +55,6 @@ Feature: SUC:01-01-Submit Registration Application
     Then Then enter town "<town>"
     Then Select region "<region>" and district "<district>"
     Then Click ok: xpath "//*[@id='AddressDetails:addOk']"
-
     Then Click save "OrganisationSummaryDetails:Save"
     Then Verify error message "Following necessary attachments should be supplied"
     Examples:
