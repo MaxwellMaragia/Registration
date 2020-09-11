@@ -9,6 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.BaseClass;
@@ -19,12 +20,12 @@ import io.cucumber.java.en.Then;
 
 public class stepDefinitions extends BaseClass {
 
-    public String ReferenceNumber;
+    public String ReferenceNumber="ARN/00020872/2020";
     public String propertyID;
     public String organizationPropertyID;
 
-    //--------------------Maxwell Maragia---------------------------------------------------------//
-    //--------------------UTILS-------------------------------------------------------------------//
+    //-----------------------------------Maxwell Maragia--------------------------------------------...-------------//
+    //--------------------------------------UTILS-------------------------------------------------------------------//
     @Given("^Browser is launched and trips URL loaded in address bar$")
     public void loadTripsLink() throws Throwable {
         driver.get(Pro.getProperty("MRA_BackOffice_URL"));
@@ -89,8 +90,8 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Switch to frame$")
     public void shift_focus_to_frame() throws Throwable {
-        Thread.sleep(7000);
-        WebElement Iframe = driver.findElement(By.tagName("iframe"));
+        WebDriverWait wait = new WebDriverWait(driver,20);
+        WebElement Iframe = wait.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("iframe")));
         driver.switchTo().frame(Iframe);
     }
 
@@ -131,7 +132,7 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Verify save success message \"([^\"]*)\"$")
     public void verify_success_message(String Message) throws Throwable {
-        WebDriverWait wait = new WebDriverWait(driver,20);
+        WebDriverWait wait = new WebDriverWait(driver,120);
         WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + Message + "')]")));
         if (successMessage.isDisplayed()) {
             System.out.println("Success message ('" + Message + "') has been displayed");
@@ -211,8 +212,8 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Enter first name \"([^\"]*)\" and last name \"([^\"]*)\"$")
     public void enter_names(String firstName, String lastName) throws Throwable {
-        BaseClass.waitForPageToLoad();
-        driver.findElement(By.id("RegisterIndividual:FirstName")).clear();
+        WebDriverWait wait = new WebDriverWait(driver,100);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("RegisterIndividual:FirstName"))).clear();
         Thread.sleep(1000);
         driver.findElement(By.id("RegisterIndividual:FirstName")).sendKeys(firstName);
         Thread.sleep(1000);
@@ -480,10 +481,12 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Enter Organization name \"([^\"]*)\"$")
     public void select_organization_name(String name) throws Throwable {
-        BaseClass.waitForPageToLoad();
-        driver.findElement(By.id("OrganisationSummaryDetails:LegalName")).clear();
-        Thread.sleep(2000);
-        driver.findElement(By.id("OrganisationSummaryDetails:LegalName")).sendKeys(name);
+        WebDriverWait wait = new WebDriverWait(driver,60);
+        WebElement nameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("OrganisationSummaryDetails:LegalName")));
+        nameField.clear();
+        Thread.sleep(5000);
+        nameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("OrganisationSummaryDetails:LegalName")));
+        nameField.sendKeys(name);
     }
 
     @Then("^Select Account end day \"([^\"]*)\"$")
@@ -568,9 +571,10 @@ public class stepDefinitions extends BaseClass {
 
     @Then("^Select reason for amendment \"([^\"]*)\"$")
     public void select_reason_for_amendment(String amendmentReason) throws Throwable {
-        BaseClass.waitForPageToLoad();
-        driver.findElement(By.xpath("//*[@id=\"RegisterIndividual:individualAccordion:AmmendmentReason\"]/div[3]")).click();
-        Thread.sleep(2500);
+        WebDriverWait wait = new WebDriverWait(driver,100);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"RegisterIndividual:individualAccordion:AmmendmentReason\"]/div[3]"))).click();
+
+        Thread.sleep(1500);
         //        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         //        WebElement reason = driver.findElement(By.xpath("//li[contains(text(),'" + amendmentReason + "')]"));
         //        reason.click();
@@ -660,18 +664,16 @@ public class stepDefinitions extends BaseClass {
     @Then("^approve transaction$")
     public void approve_transaction() throws Throwable {
         driver.switchTo().frame("contentIFrame1");
-        Thread.sleep(9000);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        Actions action=new Actions(driver);
+        WebElement Outcome=driver.findElement(By.id("header_process_tbg_approvaloutcome4"));
+        WebElement hasLoaded= driver.findElement(By.id("header_process_tbg_approvaloutcome_lock"));
 
-        Actions action = new Actions(driver);
-        WebElement Outcome = driver.findElement(By.xpath("//*[@id=\"header_process_tbg_approvaloutcome3\"]/div[1]"));
-        WebElement hasLoaded = driver.findElement(By.id("header_process_tbg_approvaloutcome_lock"));
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         Thread.sleep(7000);
-        if (hasLoaded.isDisplayed()) {
+        if(hasLoaded.isDisplayed()) {
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             Thread.sleep(5000);
-        } else {
+        }else {
             action.doubleClick(Outcome).build().perform();
             Outcome.click();
             action.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
@@ -751,10 +753,9 @@ public class stepDefinitions extends BaseClass {
     @Then("^Status should be \"([^\"]*)\"$")
     public void Verify_status_from_CRM(String Status) throws Throwable {
         driver.switchTo().frame("contentIFrame1");
-        Thread.sleep(5000);
-        String text = driver.findElement(By.xpath("//*[@id='Status_label']")).getText();
-        System.out.println(text);
-        if (text.contains(Status)) {
+        WebDriverWait wait = new WebDriverWait(driver,200);
+        WebElement statusLabel = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[contains(text(),'" + Status + "')]")));
+        if (statusLabel.isDisplayed()) {
             Assert.assertTrue("Approved", true);
         } else {
             Assert.fail("Approval failed");
@@ -1083,4 +1084,69 @@ public class stepDefinitions extends BaseClass {
         WebElement tinField = driver.findElement(By.id("OrganisationSummaryDetails:TIN"));
         Assert.assertFalse(tinField.getAttribute("readonly"),false);
     }
+
+    //...............AMEND REQUEST FROM RGD...............................................................//
+    @Then("^Click Sole proprietor additional details tab$")
+    public void Click_sole_proprietor_additional_details_tab() throws Throwable {
+        driver.findElement(By.xpath("//*[@id=\"RegisterIndividual:individualAccordion\"]/ul/li[5]/a")).click();
+    }
+
+    @Then("^Click edit \"([^\"]*)\"$")
+    public void click_edit_something(String editXpath) throws Throwable {
+        driver.findElement(By.id(editXpath)).click();
+    }
+
+    @Then("^Change RGD number to \"([^\"]*)\"$")
+    public void change_rgd_number_to_something(String rgd) throws Throwable {
+        WebDriverWait wait = new WebDriverWait(driver,60);
+        WebElement rgdField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("TradingNameDetails:RGDNo")));
+        rgdField.clear();
+        rgdField.sendKeys(rgd);
+    }
+
+    @Then("^Wait for text \"([^\"]*)\" to load in frame \"([^\"]*)\"$")
+    public void wait_for_text_to_load_in_frame(String text, String frameID) throws Throwable {
+        driver.switchTo().frame("contentIFrame1");
+        WebDriverWait wait = new WebDriverWait(driver,300);
+        WebElement frame = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(frameID)));
+        driver.switchTo().frame(frame);
+        WebDriverWait wait2 = new WebDriverWait(driver,300);
+        wait2.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[contains(text(),'" + text + "')]")));
+        driver.switchTo().defaultContent();
+    }
+
+    @Then("^Verify duplicate check returns duplicates$")
+    public void verifyDuplicateCheck() throws Throwable {
+        driver.switchTo().frame("contentIFrame1");
+        Actions action=new Actions(driver);
+        WebElement Outcome=driver.findElement(By.id("header_process_tbg_approvaloutcome4"));
+        WebElement hasLoaded= driver.findElement(By.id("header_process_tbg_approvaloutcome_lock"));
+
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        Thread.sleep(7000);
+        if(hasLoaded.isDisplayed()) {
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            Thread.sleep(5000);
+        }else {
+            String duplicateCheck = driver.findElement(By.xpath("//*[@id=\"header_process_tbg_duplicatecheckoutcome2\"]/div[1]/span")).getText();
+            if(duplicateCheck.equalsIgnoreCase("No"))
+            {
+                Assert.fail("Duplicate check fail");
+            }
+        }
+        driver.switchTo().defaultContent();
+    }
+
+    @Then("^Delete case$")
+    public void deleteCase() throws Throwable {
+        driver.switchTo().defaultContent();
+        driver.findElement(By.id("tbg_registrationapplication|NoRelationship|Form|Mscrm.Form.tbg_registrationapplication.Delete")).click();
+        WebDriverWait wait = new WebDriverWait(driver,30);
+        WebElement frame = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("InlineDialog_Iframe")));
+        driver.switchTo().frame(frame);
+        Thread.sleep(4000);
+        driver.findElement(By.id("butBegin")).click();
+        driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+    }
+
 }

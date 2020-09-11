@@ -1,5 +1,37 @@
 Feature: SUC:01-07-Amend Taxpayer
 
+  @SUC:01-07 @UAT_TCS-01.07.2
+  Scenario Outline: UAT_TCS 01.07.2-To verify the process of amendment Request received from RGD (sole proprietors)
+    Given Browser is launched and trips URL loaded in address bar
+    And User logged in as revenue officer
+      | tripsuser | Passw0rd |
+    Then Go to registration > manage taxpayer > update taxpayer
+    Then Enter tin as "C0020598"
+    Then Click search : id "SearchForm:j_idt42"
+    Then Select reason for amendment "<amendmentReason>"
+    Then Click Sole proprietor additional details tab
+    Then Click table column "//*[@id='RegisterIndividual:individualAccordion:tradingNameTableHandler_data']/tr/td[4]"
+    Then Click edit "RegisterIndividual:individualAccordion:tradingNameTableHandler:EditTradingNameDetails"
+    Then Switch to frame
+    Then Change RGD number to "32344560"
+    Then Click ok: xpath "//*[@id='TradingNameDetails:OK']"
+    Then Click save "RegisterIndividual:submitTaxpayerRegistration"
+    Then Verify save success message "Processing Completed - Reference Number"
+    Then Obtain reference number "<SuccessMessage>"
+    Then Open CRM and close modal
+    Then Click on registration application link
+    Then switch to frame
+    Then search for reference number
+    Then Click on reference number
+    Then Click next stage button
+    Then Wait for text "Amendment Change Type" to load in frame "WebResource_RegistrationApplicationAngular"
+    Then approve transaction
+    Then Click save CRM
+    Then Status should be "<Status>"
+    Examples:
+      | amendmentReason | Status   | SuccessMessage                          |
+      | Change of Name  | Approved | Processing Completed - Reference Number |
+
   @SUC:01-07 @UAT_TCS-01.07.3
   Scenario Outline: UAT_TCS 01.07.3-To verify the process of amendment request received from Taxpayer Portal
     Given Browser is launched and trips URL loaded in address bar
@@ -73,6 +105,32 @@ Feature: SUC:01-07-Amend Taxpayer
     Examples:
       | Category      | amendmentReason |
       | Self-employed | Change of Name  |
+
+  @SUC:01-07 @UAT_TCS-01.07.7
+  Scenario Outline: UAT_TCS 01.07.7-To verify the process of Duplicate check during Amendment
+    Given Browser is launched and trips URL loaded in address bar
+    And User logged in as revenue officer
+      | tripsuser | Passw0rd |
+    Then Go to registration > manage taxpayer > update taxpayer
+    Then Enter tin as "C0020598"
+    Then Click search : id "SearchForm:j_idt42"
+    Then Enter first name "<firstName>" and last name "<lastName>"
+    Then Select reason for amendment "<amendmentReason>"
+    Then Click save "RegisterIndividual:submitTaxpayerRegistration"
+    Then Verify save success message "<SuccessMessage>"
+    Then Obtain reference number "<SuccessMessage>"
+    Then Open CRM and close modal
+    Then Click on registration application link
+    Then switch to frame
+    Then search for reference number
+    Then Click on reference number
+    Then Click next stage button
+    Then Wait for text "First Name" to load in frame "WebResource_RegistrationApplicationAngular"
+    Then Verify duplicate check returns duplicates
+    Then Delete case
+    Examples:
+      | firstName | lastName | amendmentReason | SuccessMessage                          |
+      | Max       | Suspend  | Invalid data    | Processing Completed - Reference Number |
 
   @SUC:01-07 @UAT_TCS-01.07.8
   Scenario Outline: UAT_TCS 01.07.8-To verify the process of checking duplicates [Organization initially registered in RGD]
