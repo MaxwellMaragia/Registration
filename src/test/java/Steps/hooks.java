@@ -24,7 +24,7 @@ public class hooks extends BaseClass {
 
     @After(order = 1)
     public void AfterSelenium() {
-        BaseClass.TearDown();
+        //BaseClass.TearDown();
         System.out.println("Completed execution for the scenario :" + scenario.getName());
     }
 

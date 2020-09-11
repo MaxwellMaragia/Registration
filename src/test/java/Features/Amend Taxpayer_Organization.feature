@@ -59,13 +59,13 @@ Feature: SUC:01-08-Amend Taxpayer
     Then Click Cancel "OrganisationSummaryDetails:Cancel"
     Then Verify exit from update page
 
-  @UAT_TCS-01.08.8 @SUC:01-08
-  Scenario: UAT_TCS 01.08.9-To verify the process of rejecting amendment task
+  @UAT_TCS-01.08.7 @SUC:01-08
+  Scenario Outline: UAT_TCS 01.08.7-To verify the process of Checking Duplicates [Organization Initially registered in Trips+]
     Given Browser is launched and trips URL loaded in address bar
     And User logged in as revenue officer
       | tripsuser | Passw0rd |
     Then Go to registration > manage taxpayer > update taxpayer
-    Then Enter tin as "V0024699"
+    Then Enter tin as "V0020639"
     Then Click search : id "SearchForm:j_idt42"
     Then Enter Organization name "<name>"
     Then Select reason for amendment : organization "<amendmentReason>"
@@ -73,6 +73,17 @@ Feature: SUC:01-08-Amend Taxpayer
     Then Verify save success message "Processing Completed - Reference Number"
     Then Obtain reference number "<SuccessMessage>"
     Then Open CRM and close modal
+    Then Click on registration application link
+    Then switch to frame
+    Then search for reference number
+    Then Click on reference number
+    Then Click next stage button
+    Then Wait for text "Organisation Category" to load in frame "WebResource_RegistrationApplicationAngular"
+    Then Verify duplicate check returns duplicates
+    #    Then Delete case
+    Examples:
+      | name               | amendmentReason | Notes        | SuccessMessage                          |
+      | Smart Bottles      | Change of Name  | Invalid data | Processing Completed - Reference Number |
 
   @UAT_TCS-01.08.9 @SUC:01-08
   Scenario Outline: UAT_TCS 01.08.9-To verify the process of rejecting amendment task
