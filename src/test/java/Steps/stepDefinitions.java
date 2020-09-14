@@ -20,7 +20,7 @@ import io.cucumber.java.en.Then;
 
 public class stepDefinitions extends BaseClass {
 
-    public String ReferenceNumber="ARN/00020872/2020";
+    public String ReferenceNumber;
     public String propertyID;
     public String organizationPropertyID;
 
